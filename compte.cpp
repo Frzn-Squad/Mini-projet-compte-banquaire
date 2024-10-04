@@ -1,59 +1,41 @@
-#include "compte.h"  
-#include <iostream>  
-#include <iomanip>   
+#include "compte.h"
 
-using namespace std;  
+// Initialisation du compteur à 0
+int Compte::compteur = 0;
 
-int Compte::compteurNumero = 0;  
+// Constructeur de la classe Compte
+Compte::Compte(Client c, double soldeInitial) : proprietaire(c), solde(soldeInitial) {
+    numeroCompte = ++compteur;  // Numéro de compte unique
+}
 
+// Méthode pour obtenir le numéro du compte
+int Compte::getNumeroCompte() const {
+    return numeroCompte;
+}
 
-Compte::Compte(Client& proprietaire)
-    : numero("C" + to_string(++compteurNumero)), solde(0.0), proprietaire(proprietaire) {}
-
-
+// Méthode pour obtenir le solde
 double Compte::getSolde() const {
-    return solde;  
+    return solde;
 }
 
-string Compte::getNumero() const {
-    return numero;  
-}
-
-string Compte::getRIB() const {
-    return "RIB-" + numero;  
-}
-
-
+// Méthode pour déposer de l'argent
 void Compte::deposer(double montant) {
-    if (montant > 0) {
-        solde += montant;  
-    }
+    solde += montant;
+    cout << "Dépôt de " << montant << " effectué. Nouveau solde: " << solde << "\n";
 }
 
-
+// Méthode pour retirer de l'argent
 void Compte::retirer(double montant) {
-    if (montant > 0 && montant <= solde) {
-        solde -= montant;  
+    if (montant <= solde) {
+        solde -= montant;
+        cout << "Retrait de " << montant << " effectué. Nouveau solde: " << solde << "\n";
+    } else {
+        cout << "Solde insuffisant!" << "\n";
     }
 }
 
-
-void Compte::transferer(Compte& autreCompte, double montant) {
-    if (montant > 0 && montant <= solde) {
-        retirer(montant);        
-        autreCompte.deposer(montant);  
-    }
-}
-
-
-void Compte::afficherInfo() const {
-    cout << "Informations du compte:" << endl;
-    cout << "Numéro: " << numero << endl;
-    cout << "Solde: " << fixed << setprecision(2) << solde << " EUR" << endl;
-    cout << "Propriétaire: " << proprietaire.getNom() << " " << proprietaire.getPrenom() << endl;
-}
-
-
-void Compte::commanderChequier() {
-    cout << "Commande de chéquier pour le compte " << numero << " effectuée." << endl;
+// Méthode pour afficher les informations du compte
+void Compte::afficherCompte() const {
+    cout << "Numéro de compte: " << numeroCompte << "\nSolde: " << solde << "\n";
+    proprietaire.afficherInfos();
 }

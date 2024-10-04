@@ -1,18 +1,31 @@
-#include <iostream>
 #include "client.h"
-using namespace std;
 
-Client::Client(const string& cin, const string& nom, const string& prenom, const string& telephone)
-    : cin(cin), nom(nom), prenom(prenom), telephone(telephone) {}
-string Client::()  {
-    return cin;  
+// Constructeur de la classe Client
+Client::Client(string cin, string n, string p, string tel)
+    : CIN(cin), nom(n), prenom(p), telephone(tel) {}
+
+// Méthode pour obtenir le CIN du client
+string Client::getCIN() const {
+    return CIN;
 }
-string Client::()  {
-    return nom;  
+
+// Méthode pour obtenir le nom du client
+string Client::getNom() const {
+    return nom;
 }
-string Client::()  {
-    return prenom;  
+
+// Méthode pour obtenir le prénom du client
+string Client::getPrenom() const {
+    return prenom;
 }
-string Client::()  {
-    return telephone;  
+
+// Méthode pour obtenir le téléphone du client
+string Client::getTelephone() const {
+    return telephone;
+}
+
+// Méthode pour afficher les informations du client
+void Client::afficherInfos() const {
+    cout << "CIN: " << CIN << "\nNom: " << nom << "\nPrenom: " << prenom 
+         << "\nTelephone: " << telephone << "\n";
 }
